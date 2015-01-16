@@ -1,0 +1,29 @@
+# Use latest jboss/base-jdk:7 image as the base
+FROM jboss/base-jdk:7
+
+# Maintainer details
+MAINTAINER Andrew Block <andy.block@gmail.com>
+
+# Switch to root to perform installations
+USER root
+
+# Maven version
+ENV MAVEN_VERSION 3.2.5
+
+# Install dependencies and add required directories 
+RUN yum install -y wget unzip git \
+  && yum clean all \
+  && curl -sSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
+  && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
+  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn \
+  && mkdir /opt/jboss/.m2 \
+  && chown -R jboss:jboss /opt/jboss/.m2
+	
+# Maven home
+ENV M2_HOME /usr/share/maven
+
+# Add custom Maven Settings file
+ADD support/settings.xml /opt/jboss/.m2/settings.xml
+
+# Run as user JBoss
+USER jboss
