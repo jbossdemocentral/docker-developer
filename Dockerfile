@@ -25,5 +25,8 @@ ENV M2_HOME /usr/share/maven
 # Add custom Maven Settings file
 ADD support/settings.xml /opt/jboss/.m2/settings.xml
 
+# Modify permissions on Maven settings file
+RUN chown jboss:jboss /opt/jboss/.m2/settings.xml
+
 # Run as user JBoss
 USER jboss
