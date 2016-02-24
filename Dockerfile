@@ -1,5 +1,5 @@
-# Use latest jboss/base-jdk:7 image as the base
-FROM jboss/base-jdk:7
+# Use latest jboss/base-jdk:8 image as the base
+FROM jboss/base-jdk:8
 
 # Maintainer details
 MAINTAINER Andrew Block <andy.block@gmail.com>
@@ -30,4 +30,4 @@ ADD support/settings.xml /opt/jboss/.m2/settings.xml
 RUN chown jboss:jboss /opt/jboss/.m2/settings.xml
 
 # Run as user JBoss
-USER jboss
+USER 1000
