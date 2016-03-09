@@ -1,5 +1,5 @@
-# Use latest jboss/base-jdk:7 image as the base
-FROM jboss/base-jdk:7
+# Use latest jboss/base-jdk:8 image as the base
+FROM jboss/base-jdk:8
 
 # Maintainer details
 MAINTAINER Andrew Block <andy.block@gmail.com>
@@ -12,7 +12,7 @@ ENV MAVEN_VERSION 3.2.5
 
 # Update Sudoers, Install dependencies and add required directories
 RUN echo 'jboss ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers \
-  && yum install -y wget unzip git \
+  && yum install -y wget unzip git apr-devel \
   && yum clean all \
   && curl -sSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
   && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
@@ -30,4 +30,4 @@ ADD support/settings.xml /opt/jboss/.m2/settings.xml
 RUN chown jboss:jboss /opt/jboss/.m2/settings.xml
 
 # Run as user JBoss
-USER jboss
+USER 1000
