@@ -12,7 +12,7 @@ ENV MAVEN_VERSION 3.2.5
 
 # Update Sudoers, Install dependencies and add required directories
 RUN echo 'jboss ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers \
-  && yum install -y wget unzip git \
+  && yum install -y wget unzip git apr-devel \
   && yum clean all \
   && curl -sSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
   && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
