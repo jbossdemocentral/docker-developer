@@ -2,13 +2,13 @@
 FROM jboss/base-jdk:8
 
 # Maintainer details
-MAINTAINER Andrew Block <andy.block@gmail.com>
+LABEL maintainer="ddoyle@redhat.com"
 
 # Switch to root to perform installations
 USER root
 
 # Maven version
-ENV MAVEN_VERSION 3.2.5
+ENV MAVEN_VERSION 3.6.1
 
 # Update Sudoers, Install dependencies and add required directories
 RUN echo 'jboss ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers \
@@ -19,7 +19,7 @@ RUN echo 'jboss ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn \
   && mkdir /opt/jboss/.m2 \
   && chown -R 1000:1000 /opt/jboss/.m2
-	
+
 # Maven home
 ENV M2_HOME /usr/share/maven
 
